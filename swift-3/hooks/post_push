@@ -1,13 +1,16 @@
 #!/bin/bash
 
-env
+# https://docs.docker.com/docker-cloud/builds/advanced/
 
-TAG=${SOURCE_BRANCH}_swift-3.1
-docker tag $IMAGE_NAME $DOCKER_REPO:$TAG
-docker push $DOCKER_REPO:$TAG
+function add_tag() {
+  docker tag $IMAGE_NAME $DOCKER_REPO:$1
+  docker push $DOCKER_REPO:$1
+}
 
-TAG=${SOURCE_BRANCH}_swift-3.1.1
-docker tag $IMAGE_NAME $DOCKER_REPO:$TAG
-docker push $DOCKER_REPO:$TAG
+add_tag ${SOURCE_BRANCH}_swift-3.1
+add_tag ${SOURCE_BRANCH}_swift-3.1.1
+add_tag swift-3
+add_tag swift-3.1
+add_tag swift-3.1.1
 
 exit $?
